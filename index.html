@@ -212,7 +212,7 @@ b {
 		/////
 
 		const key = localStorage.getItem('key');
-		if (!key) {
+		if (!key && !window.cfg) {
 			localStorage.removeItem('key');
 			end();
 		}
@@ -276,19 +276,22 @@ b {
 		}
 
 		if (code)
-			fetch('https://ubc.pythonanywhere.com/qtv', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ key })
-			}).then(r => r.json()).then(data => {
-				if (data.sites) init(data.sites);
-				else end();
-			}).catch(e => {
-				end();
-				console.error(e);
-			});
+			if (window.cfg?.init) init(window.cfg?.init);
+			else {
+				fetch(window.cfg?.url || 'https://ubc.pythonanywhere.com/qtv', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({ key })
+				}).then(r => r.json()).then(data => {
+					if (data.sites) init(data.sites);
+					else end();
+				}).catch(e => {
+					end();
+					console.error(e);
+				});
+			}
 	</script>
 </body>
 </html>
