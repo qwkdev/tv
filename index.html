@@ -241,7 +241,8 @@ b {
 			tv.s = parts[1].split('e')[0].replace(/[^0-9]/g, '');
 			tv.e = parts[1].split('e')[1].replace(/[^0-9]/g, '');
 		}
-		document.getElementById('code').innerText = code + (tv.is ? `-s${tv.s}e${tv.e}` : '');
+		const link = code + (tv.is ? `-s${tv.s}e${tv.e}` : '');
+		document.getElementById('code').innerText = link
 
 		let SITES = [];
 		const ACCENT = '6400FF';
