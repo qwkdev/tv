@@ -276,7 +276,6 @@ b {
 		}
 
 		if (code)
-			console.log(window.cfg);
 			if (window.cfg?.init) init(window.cfg?.init);
 			else {
 				fetch(window.cfg?.url || 'https://ubc.pythonanywhere.com/qtv', {
